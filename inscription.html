@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inscription Formation</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    section {
+      max-width: 500px;
+      margin: auto;
+      padding: 30px;
+    }
+
+    h3 {
+      text-align: center;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: darkred;
+    }
+
+    #status {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<section>
+
+  <h3>🚀 Inscription à la formation</h3>
+
+  <form id="contactForm">
+
+    <input type="text" name="name" placeholder="Nom complet" required>
+
+    <input type="email" name="email" placeholder="Email" required>
+
+    <input type="text" name="country" placeholder="Pays" required>
+
+    <input type="text" name="whatsapp" placeholder="Numéro WhatsApp" required>
+
+    <!-- Formation auto -->
+    <input type="text" id="formation" name="formation" readonly>
+
+    <textarea name="message" placeholder="Message (optionnel)"></textarea>
+
+    <button type="submit">S'inscrire</button>
+
+  </form>
+
+  <p id="status"></p>
+
+</section>
+
+<!-- SCRIPT -->
+<script>
+
+// 👉 récupérer la formation depuis l'URL
+const params = new URLSearchParams(window.location.search);
+const formation = params.get("formation");
+
+document.getElementById("formation").value = formation || "Non précisée";
+
+
+// 👉 envoi du formulaire
+document.getElementById("contactForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const form = e.target;
+    const status = document.getElementById("status");
+
+    status.style.color = "white";
+    status.textContent = "⏳ Envoi en cours...";
+
+    fetch("https://formsubmit.co/ajax/odilonlaly086@gmail.com", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    .then(res => res.json())
+    .then(() => {
+        status.style.color = "lightgreen";
+        status.textContent = "✅ Inscription réussie !";
+
+        // 👉 redirection après 2 secondes
+        setTimeout(() => {
+            window.location.href = "merci.html";
+        }, 2000);
+
+        form.reset();
+    })
+    .catch(() => {
+        status.style.color = "red";
+        status.textContent = "❌ Erreur, réessaie.";
+    });
+});
+
+</script>
+
+</body>
+</html>
