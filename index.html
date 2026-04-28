@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formations Digitales</title>
+
+<style>
+body { font-family: Arial; margin:0; background:#f5f6fa; }
+
+header {
+  background:#2f80ed;
+  color:white;
+  padding:15px;
+  text-align:center;
+}
+
+section {
+  padding:40px 20px;
+  max-width:1000px;
+  margin:auto;
+}
+
+h2 { text-align:center; color:#2f80ed; }
+
+.formations {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+}
+
+.formation {
+  background:white;
+  padding:20px;
+  border-radius:8px;
+  width:250px;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+  text-align:center;
+}
+
+button {
+  padding:10px;
+  background:#27ae60;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🚀 Centre de Formation Digitale</h1>
+</header>
+
+<section>
+  <h2>Choisissez votre formation</h2>
+
+  <div class="formations">
+
+    <div class="formation">
+      <h3>IA</h3>
+      <p>Créer histoires, chansons et vidéos automatiques</p>
+      <a href="inscription.html?formation=IA">
+        <button>Choisir</button>
+      </a>
+    </div>
+
+    <div class="formation">
+      <h3>Développement Web</h3>
+      <p>Apprendre HTML & CSS facilement</p>
+      <a href="inscription.html?formation=WEB">
+        <button>Choisir</button>
+      </a>
+    </div>
+
+    <div class="formation">
+      <h3>Marketing Digital</h3>
+      <p>Gagner de l’argent en ligne</p>
+      <a href="inscription.html?formation=MARKETING">
+        <button>Choisir</button>
+      </a>
+    </div>
+
+  </div>
+
+</section>
+
+</body>
+</html>
