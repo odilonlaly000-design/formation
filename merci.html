@@ -9,35 +9,53 @@
 body {
   margin:0;
   font-family: Arial, sans-serif;
-  background:#f4f4f4;
+  background:#0f172a;
+  color:white;
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
+  min-height:100vh;
 }
 
 .container {
-  background:white;
+  background:#1e293b;
   padding:30px 20px;
   border-radius:10px;
   text-align:center;
-  box-shadow:0 5px 20px rgba(0,0,0,0.1);
   width:90%;
-  max-width:420px;
+  max-width:500px;
+  box-shadow:0 5px 25px rgba(0,0,0,0.3);
 }
 
 h1 {
-  font-size:26px;
-  margin-bottom:10px;
+  color:#4ade80;
+  font-size:24px;
 }
 
 p {
   font-size:15px;
-  line-height:1.5;
-  margin:10px 0;
+  line-height:1.6;
+}
+
+.info {
+  background:#0f172a;
+  padding:15px;
+  border-radius:6px;
+  margin:20px 0;
+  text-align:left;
+}
+
+.info p {
+  margin:6px 0;
 }
 
 .highlight {
+  font-weight:bold;
+  color:#4ade80;
+}
+
+.urgent {
+  color:#ff4d4d;
   font-weight:bold;
   font-size:16px;
 }
@@ -48,29 +66,29 @@ ul {
 }
 
 li {
-  margin:5px 0;
+  margin:6px 0;
 }
 
 button {
   margin-top:20px;
-  padding:15px;
+  padding:16px;
   width:100%;
   font-size:18px;
-  background:#28a745;
+  background: green;
   color:white;
   border:none;
-  border-radius:5px;
+  border-radius:6px;
   cursor:pointer;
 }
 
 button:hover {
-  background:#218838;
+  background:darkred;
 }
 
-.urgent {
-  color:red;
-  font-weight:bold;
+.small {
+  font-size:13px;
   margin-top:10px;
+  color:#ccc;
 }
 </style>
 </head>
@@ -79,34 +97,86 @@ button:hover {
 
 <div class="container">
 
-  <h1>✅ Merci pour votre inscription !</h1>
+<h1>🎉 Inscription réussie !</h1>
 
-  <p>Votre demande a été envoyée avec succès. Vous venez de faire un premier pas important vers votre évolution dans le digital.</p>
+<p id="messagePerso">Chargement...</p>
 
-  <p>🎯 Mais pour valider définitivement votre place, il vous reste une étape essentielle :</p>
+<div class="info" id="detailsInscription"></div>
 
-  <p class="highlight">👉 Finaliser votre inscription en effectuant le paiement.</p>
+<p><strong>🚀 Votre place est pré-réservée.</strong></p>
 
-  <p>⚠️ Les places sont limitées pour garantir un accompagnement de qualité. Toute inscription non finalisée peut être annulée.</p>
+<p class="urgent">⏳ Attention : votre réservation expire bientôt !</p>
 
-  <p>🚀 Après paiement, vous aurez accès immédiatement à :</p>
+<p>👉 Sans validation immédiate, votre accès peut être attribué à une autre personne.</p>
 
-  <ul>
-    <li>✔️ Des formations complètes et pratiques</li>
-    <li>✔️ Des méthodes simples pour créer (IA, sites web, vidéos)</li>
-    <li>✔️ Des techniques pour générer des revenus en ligne</li>
-    <li>✔️ Un accompagnement pour progresser rapidement</li>
-  </ul>
+<hr>
 
-  <p>💡 Ne laissez pas passer cette opportunité de développer une compétence qui peut changer votre avenir.</p>
+<p class="highlight">💡 Dès votre paiement, vous débloquez immédiatement :</p>
 
-  <p class="urgent">⏳ Offre limitée – agissez maintenant !</p>
+<ul>
+<li>✔️ Création avec l’IA (histoires, chansons, vidéos)</li>
+<li>✔️ Stratégies concrètes pour gagner de l’argent</li>
+<li>✔️ Méthodes utilisées par les experts</li>
+<li>✔️ Accompagnement rapide et efficace</li>
+</ul>
 
-  <a href="https://nyrrnajz.mychariow.shop/prd_4j6na2">
-    <button>💳 Payer maintenant</button>
-  </a>
+<hr>
+
+<p><strong>🔥 Ce que vous risquez en attendant :</strong></p>
+
+<p>❌ Perdre votre place<br>
+❌ Rater une opportunité importante<br>
+❌ Continuer sans évolution</p>
+
+<p class="highlight">
+👉 Ceux qui réussissent passent à l’action immédiatement.
+</p>
+<h3 class="urgent">Cliquez sur `Payer maintenant` pour valider votre l'inscription</h3>
+<a href="https://nyrrnajz.mychariow.shop/prd_4j6na2">
+  <button>💳 Payer maintenant</button>
+</a>
+
+<p class="small">🔥 Plus de 120 personnes ont déjà validé leur inscription</p>
+
+<p class="small">💬 Nous sommes prêts à vous accompagner dès aujourd’hui</p>
+
+<p class="small"><strong>À tout de suite dans la formation 🙌</strong></p>
 
 </div>
+
+<script>
+
+// 👉 Récupération des données
+const name = localStorage.getItem('inscritName');
+const email = localStorage.getItem('inscritEmail');
+const formation = localStorage.getItem('inscritFormation');
+
+const message = document.getElementById('messagePerso');
+const details = document.getElementById('detailsInscription');
+
+// 👉 Affichage personnalisé
+if(name && email && formation){
+
+  message.innerHTML = `Merci <strong>${name}</strong>, votre inscription est confirmée !`;
+
+  details.innerHTML = `
+    <p><strong>Nom :</strong> ${name}</p>
+    <p><strong>Email :</strong> ${email}</p>
+    <p><strong>Formation :</strong> ${formation}</p>
+  `;
+
+  // Nettoyage
+  localStorage.removeItem('inscritName');
+  localStorage.removeItem('inscritEmail');
+  localStorage.removeItem('inscritFormation');
+
+} else {
+
+  message.textContent = "Votre inscription a bien été prise en compte.";
+
+}
+
+</script>
 
 </body>
 </html>
