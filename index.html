@@ -39,6 +39,16 @@ h2 { text-align:center; color:#2f80ed; }
   text-align:center;
 }
 
+.histoire { 
+  background: gainsboro;
+  padding:20px;
+  border-radius:8px;
+  width:215px;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+  text-align:center;
+
+}
+
 button {
   padding:10px;
   background:#27ae60;
@@ -46,6 +56,12 @@ button {
   border:none;
   border-radius:5px;
   cursor:pointer;
+}
+footer {
+    background: #222;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
 }
 </style>
 </head>
@@ -63,18 +79,16 @@ button {
 
     <div class="formation">
       <h3>IA</h3>
-      <p>Créer histoires, chansons et vidéos automatiques</p>
+      <p class="histoire">Création des histoires</p>
+      <a href="inscription.html?formation=Histoires">
+        <button>Choisir</button>
+      </a>
+      
+            <p class="histoire">Générer des Photos pro, Affiches pub,  chansons et vidéos automatiques</p>
       <a href="inscription.html?formation=IA">
         <button>Choisir</button>
       </a>
-    </div>
-
-    <div class="formation">
-      <h3>Développement Web</h3>
-      <p>Apprendre HTML & CSS facilement</p>
-      <a href="inscription.html?formation=WEB">
-        <button>Choisir</button>
-      </a>
+      
     </div>
 
     <div class="formation">
@@ -84,10 +98,22 @@ button {
         <button>Choisir</button>
       </a>
     </div>
+    
+      <div class="formation">
+      <h3>Développement Web</h3>
+      <p>Apprendre HTML & CSS facilement</p>
+      <a href="inscription.html?formation=WEB">
+        <button>Choisir</button>
+      </a>
+    </div>
 
   </div>
 
 </section>
+
+ <footer>
+        <p>© 2026 – Formation Digital % Gaël Nobime / Odilon Laly ® </p>
+    </footer>
 
 </body>
 </html>
