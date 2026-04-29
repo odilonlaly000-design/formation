@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +21,7 @@
 
     h3 {
       text-align: center;
+      font-size: 22px;
     }
 
     input, textarea {
@@ -30,6 +30,13 @@
       margin: 8px 0;
       border: none;
       border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    input[readonly] {
+      background: #1e293b;
+      color: #94a3b8;
     }
 
     button {
@@ -47,11 +54,24 @@
       background: darkred;
     }
 
+    button:disabled {
+      background: grey;
+      cursor: not-allowed;
+    }
+
     #status {
       text-align: center;
       margin-top: 15px;
+      font-weight: bold;
     }
 
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 25px;
+      margin-top: 30px;
+    }
   </style>
 </head>
 
@@ -76,7 +96,10 @@
 
     <textarea name="message" placeholder="Message (optionnel)"></textarea>
 
-    <button type="submit">S'inscrire</button>
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="Nouvelle inscription formation">
+
+    <button type="submit" id="submitBtn">S'inscrire</button>
 
   </form>
 
@@ -84,49 +107,64 @@
 
 </section>
 
-<!-- SCRIPT -->
 <script>
 
-// 👉 récupérer la formation depuis l'URL
+// 👉 Récupérer la formation depuis l'URL
 const params = new URLSearchParams(window.location.search);
-const formation = params.get("formation");
+const formationValue = params.get("formation") || "Non précisée";
+document.getElementById("formation").value = formationValue;
 
-document.getElementById("formation").value = formation || "Non précisée";
 
+// 👉 Envoi du formulaire
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-// 👉 envoi du formulaire
-document.getElementById("contactForm").addEventListener("submit", function(e){
-    e.preventDefault();
+  const form = e.target;
+  const submitBtn = document.getElementById("submitBtn");
+  const status = document.getElementById("status");
 
-    const form = e.target;
-    const status = document.getElementById("status");
+  const name = form.name.value;
+  const email = form.email.value;
+  const formation = form.formation.value;
 
-    status.style.color = "white";
-    status.textContent = "⏳ Envoi en cours...";
+  submitBtn.disabled = true;
+  status.style.color = "white";
+  status.textContent = "⏳ Envoi en cours...";
 
-    fetch("https://formsubmit.co/ajax/odilonlaly086@gmail.com", {
-        method: "POST",
-        body: new FormData(form)
-    })
-    .then(res => res.json())
-    .then(() => {
-        status.style.color = "lightgreen";
-        status.textContent = "✅ Inscription réussie !";
+  fetch("https://formsubmit.co/ajax/odilonlaly086@gmail.com", {
+    method: "POST",
+    body: new FormData(form)
+  })
+  .then(res => res.json())
+  .then(() => {
 
-        // 👉 redirection après 2 secondes
-        setTimeout(() => {
-            window.location.href = "merci.html";
-        }, 2000);
+    // ✅ Stockage pour la page merci
+    localStorage.setItem('inscritName', name);
+    localStorage.setItem('inscritEmail', email);
+    localStorage.setItem('inscritFormation', formation);
 
-        form.reset();
-    })
-    .catch(() => {
-        status.style.color = "red";
-        status.textContent = "❌ Erreur, réessaie.";
-    });
+    status.style.color = "lightgreen";
+    status.textContent = "✅ Inscription réussie ! Redirection...";
+
+    // 👉 Redirection vers page merci
+    setTimeout(() => {
+      window.location.href = "merci.html";
+    }, 1200);
+
+  })
+  .catch(() => {
+    status.style.color = "red";
+    status.textContent = "❌ Erreur, réessaie.";
+    submitBtn.disabled = false;
+  });
+
 });
 
 </script>
+
+<footer>
+  <p>© 2026 – Formation Digital % Gaël Nobime / Odilon Laly ®</p>
+</footer>
 
 </body>
 </html>
